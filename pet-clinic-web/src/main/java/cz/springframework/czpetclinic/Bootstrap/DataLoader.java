@@ -4,22 +4,22 @@ import cz.springframework.czpetclinic.model.Owner;
 import cz.springframework.czpetclinic.model.Vet;
 import cz.springframework.czpetclinic.services.OwnerService;
 import cz.springframework.czpetclinic.services.VetService;
-import cz.springframework.czpetclinic.services.map.OwnerServiceMap;
-import cz.springframework.czpetclinic.services.map.VetServiceMap;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DataLoader implements CommandLineRunner {
 
     private final OwnerService ownerService;
     private final VetService vetService;
 
-    public DataLoader() {
-        this.ownerService = new OwnerServiceMap();
-        this.vetService = new VetServiceMap();
+    public DataLoader(OwnerService ownerService, VetService vetService) {
+        this.ownerService = ownerService;
+        this.vetService = vetService;
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args)throws Exception {
 
         Owner owner1 = new Owner();
         owner1.setId(1L);
