@@ -1,6 +1,7 @@
 package cz.springframework.czpetclinic.Bootstrap;
 
 import cz.springframework.czpetclinic.model.Owner;
+import cz.springframework.czpetclinic.model.Pet;
 import cz.springframework.czpetclinic.model.PetType;
 import cz.springframework.czpetclinic.model.Vet;
 import cz.springframework.czpetclinic.services.OwnerService;
@@ -8,6 +9,8 @@ import cz.springframework.czpetclinic.services.PetTypeService;
 import cz.springframework.czpetclinic.services.VetService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -26,11 +29,11 @@ public class DataLoader implements CommandLineRunner {
     public void run(String... args)throws Exception {
 
         PetType dog = new PetType();
-        dog.setName("dog");
+        dog.setName("Dog");
         PetType saveDogPetType = petTypeService.save(dog);
 
         PetType cat = new PetType();
-        cat.setName("cat");
+        cat.setName("Cat");
         PetType saveCatPetType = petTypeService.save(cat);
 
         System.out.println("Pet Type Data Loaded....");
@@ -38,12 +41,34 @@ public class DataLoader implements CommandLineRunner {
         Owner owner1 = new Owner();
         owner1.setFirstName("Jai");
         owner1.setLastName("Hunter");
+        owner1.setAddress("123 Chepauk");
+        owner1.setCity("Chennai");
+        owner1.setTelephone("132434355");
+
+        Pet jaiPet = new Pet();
+        jaiPet.setName("doggy");
+        jaiPet.setOwner(owner1);
+        jaiPet.setBirthDate(LocalDate.now());
+        jaiPet.setPetType(dog);
+
+        owner1.getPets().add(jaiPet);
 
         ownerService.save(owner1);
 
         Owner owner2 = new Owner();
         owner2.setFirstName("Joe");
         owner2.setLastName("Rogan");
+        owner2.setAddress("433 Utah");
+        owner2.setCity("Texas");
+        owner2.setTelephone("934434355");
+
+        Pet joePet = new Pet();
+        joePet.setName("catty");
+        joePet.setOwner(owner2);
+        joePet.setBirthDate(LocalDate.now());
+        joePet.setPetType(cat);
+
+        owner2.getPets().add(joePet);
 
         ownerService.save(owner2);
 
